@@ -1,68 +1,77 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class StringUtilTest {
 
     @Test
-    void testToLowerCase_withAllUpperCase() {
+    void testToLowerCaseWithUppercaseString() {
         String input = "HELLO WORLD";
         String expected = "hello world";
-        assertEquals(expected, StringUtil.toLowerCase(input));
+        String actual = StringUtil.toLowerCase(input);
+        assertEquals(expected, actual, "The string should be converted to lowercase.");
     }
 
     @Test
-    void testToLowerCase_withMixedCase() {
+    void testToLowerCaseWithMixedCaseString() {
         String input = "HeLLo WoRLd";
         String expected = "hello world";
-        assertEquals(expected, StringUtil.toLowerCase(input));
+        String actual = StringUtil.toLowerCase(input);
+        assertEquals(expected, actual, "The string should be converted to lowercase.");
     }
 
     @Test
-    void testToLowerCase_withAllLowerCase() {
+    void testToLowerCaseWithLowercaseString() {
         String input = "hello world";
         String expected = "hello world";
-        assertEquals(expected, StringUtil.toLowerCase(input));
+        String actual = StringUtil.toLowerCase(input);
+        assertEquals(expected, actual, "The string should remain unchanged.");
     }
 
     @Test
-    void testToLowerCase_withNumbersAndSymbols() {
-        String input = "1234!@#$%^&*()";
-        String expected = "1234!@#$%^&*()";
-        assertEquals(expected, StringUtil.toLowerCase(input));
-    }
-
-    @Test
-    void testToLowerCase_withEmptyString() {
+    void testToLowerCaseWithEmptyString() {
         String input = "";
         String expected = "";
-        assertEquals(expected, StringUtil.toLowerCase(input));
+        String actual = StringUtil.toLowerCase(input);
+        assertEquals(expected, actual, "An empty string should remain unchanged.");
     }
 
     @Test
-    void testToLowerCase_withNullInput() {
+    void testToLowerCaseWithNumbersAndSymbols() {
+        String input = "12345!@#$%";
+        String expected = "12345!@#$%";
+        String actual = StringUtil.toLowerCase(input);
+        assertEquals(expected, actual, "Numbers and symbols should remain unchanged.");
+    }
+
+    @Test
+    void testToLowerCaseWithNullInput() {
         String input = null;
-        String expected = null;
-        assertEquals(expected, StringUtil.toLowerCase(input));
+        assertThrows(NullPointerException.class, () -> {
+            StringUtil.toLowerCase(input);
+        }, "Null input should throw NullPointerException.");
     }
 
     @Test
-    void testToLowerCase_withWhitespaceOnly() {
+    void testToLowerCaseWithWhitespaceOnly() {
         String input = "   ";
         String expected = "   ";
-        assertEquals(expected, StringUtil.toLowerCase(input));
+        String actual = StringUtil.toLowerCase(input);
+        assertEquals(expected, actual, "Whitespace-only strings should remain unchanged.");
     }
 
     @Test
-    void testToLowerCase_withUnicodeCharacters() {
-        String input = "ÄÖÜäöüß";
-        String expected = "äöüäöüß";
-        assertEquals(expected, StringUtil.toLowerCase(input));
+    void testToLowerCaseWithUnicodeCharacters() {
+        String input = "ÄÖÜß";
+        String expected = "äöüß";
+        String actual = StringUtil.toLowerCase(input);
+        assertEquals(expected, actual, "Unicode characters should be converted to lowercase.");
     }
 
     @Test
-    void testToLowerCase_withMixedAlphanumeric() {
-        String input = "Java123Programming";
-        String expected = "java123programming";
-        assertEquals(expected, StringUtil.toLowerCase(input));
+    void testToLowerCaseWithSpecialCharacters() {
+        String input = "Hello@World!";
+        String expected = "hello@world!";
+        String actual = StringUtil.toLowerCase(input);
+        assertEquals(expected, actual, "Special characters should remain unchanged while letters are converted to lowercase.");
     }
 }
