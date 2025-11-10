@@ -6,3 +6,11 @@ public class StringUtil {
         return reversed.reverse().toString();
     }
 }
+
+
+public static String toLowerCase(String input) {
+    if (input == null) {
+        return null;
+    }
+    return input.toLowerCase();
+}
