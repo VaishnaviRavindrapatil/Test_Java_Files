@@ -36,3 +36,56 @@ class StringUtilTest {
         assertFalse(StringUtil.isAnagram("123", "12"), "Expected '123' and '12' not to be anagrams");
     }
 }
+
+
+# ---- Auto-generated tests ----
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class StringUtilTest {
+
+    @Test
+    void testIsPalindromic_withPalindromeString() {
+        assertTrue(StringUtil.isPalindromic("madam"), "The string 'madam' should be identified as palindromic.");
+    }
+
+    @Test
+    void testIsPalindromic_withNonPalindromeString() {
+        assertFalse(StringUtil.isPalindromic("hello"), "The string 'hello' should not be identified as palindromic.");
+    }
+
+    @Test
+    void testIsPalindromic_withEmptyString() {
+        assertTrue(StringUtil.isPalindromic(""), "An empty string should be identified as palindromic.");
+    }
+
+    @Test
+    void testIsPalindromic_withSingleCharacterString() {
+        assertTrue(StringUtil.isPalindromic("a"), "A single character string should be identified as palindromic.");
+    }
+
+    @Test
+    void testIsPalindromic_withMixedCasePalindrome() {
+        assertTrue(StringUtil.isPalindromic("RaceCar"), "The string 'RaceCar' should be identified as palindromic (case insensitive).");
+    }
+
+    @Test
+    void testIsPalindromic_withWhitespacePalindrome() {
+        assertTrue(StringUtil.isPalindromic("A man a plan a canal Panama"), "The string with spaces 'A man a plan a canal Panama' should be identified as palindromic.");
+    }
+
+    @Test
+    void testIsPalindromic_withSpecialCharacters() {
+        assertTrue(StringUtil.isPalindromic("!@#@@#@!"), "The string '!@#@@#@!' should be identified as palindromic.");
+    }
+
+    @Test
+    void testIsPalindromic_withNonPalindromeSpecialCharacters() {
+        assertFalse(StringUtil.isPalindromic("!@#abc"), "The string '!@#abc' should not be identified as palindromic.");
+    }
+
+    @Test
+    void testIsPalindromic_withNullString() {
+        assertThrows(NullPointerException.class, () -> StringUtil.isPalindromic(null), "Null input should throw a NullPointerException.");
+    }
+}
