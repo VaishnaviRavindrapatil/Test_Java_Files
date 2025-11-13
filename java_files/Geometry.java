@@ -13,3 +13,11 @@ public static double calculateSquareArea(double sideLength) {
     }
     return sideLength * sideLength;
 }
+
+
+public static double calculateRhombusArea(double diagonal1, double diagonal2) {
+    if (diagonal1 <= 0 || diagonal2 <= 0) {
+        throw new IllegalArgumentException("Diagonals must be positive values.");
+    }
+    return (diagonal1 * diagonal2) / 2;
+}
