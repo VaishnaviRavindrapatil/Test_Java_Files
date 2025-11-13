@@ -26,3 +26,9 @@ public static double calculateRhombusArea(double diagonal1, double diagonal2) {
 public static int calculateSquarePerimeter(int sideLength) {
     return 4 * sideLength;
 }
+
+
+public static double calculatePentagonArea(double sideLength) {
+    double apothem = sideLength / (2 * Math.tan(Math.PI / 5));
+    return (5 * sideLength * apothem) / 2;
+}

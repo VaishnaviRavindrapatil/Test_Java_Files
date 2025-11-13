@@ -1,50 +1,48 @@
 package Geometry;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-class CalculateSquarePerimeterTest {
+class CalculatePentagonAreaTest {
 
     @Test
-    void testValidPerimeterCalculation() {
-        // Valid cases
-        assertEquals(16, calculateSquarePerimeter(4));
-        assertEquals(40, calculateSquarePerimeter(10));
-        assertEquals(0, calculateSquarePerimeter(0));
+    void testValidPentagonArea() {
+        // Valid case: side length is positive
+        double sideLength = 5.0;
+        double expectedArea = 43.01193501472417; // Pre-calculated expected value
+        assertEquals(expectedArea, CalculatePentagonArea.calculatePentagonArea(sideLength), 0.0001);
+    }
+
+    @Test
+    void testZeroSideLength() {
+        // Edge case: side length is zero
+        double sideLength = 0.0;
+        double expectedArea = 0.0;
+        assertEquals(expectedArea, CalculatePentagonArea.calculatePentagonArea(sideLength), 0.0001);
     }
 
     @Test
     void testNegativeSideLength() {
-        // Invalid case: negative side length
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            calculateSquarePerimeter(-5);
+        // Invalid case: side length is negative
+        double sideLength = -5.0;
+        assertThrows(IllegalArgumentException.class, () -> {
+            CalculatePentagonArea.calculatePentagonArea(sideLength);
         });
-        assertEquals("Side length cannot be negative", exception.getMessage());
+    }
+
+    @Test
+    void testSmallSideLength() {
+        // Valid case: very small side length
+        double sideLength = 0.0001;
+        double expectedArea = 4.330127018922193E-8; // Pre-calculated expected value
+        assertEquals(expectedArea, CalculatePentagonArea.calculatePentagonArea(sideLength), 0.0001);
     }
 
     @Test
     void testLargeSideLength() {
-        // Valid case: large side length
-        assertEquals(4000000, calculateSquarePerimeter(1000000));
-    }
-
-    @Test
-    void testDecimalSideLength() {
-        // Valid case: decimal side length
-        assertEquals(10.4, calculateSquarePerimeter(2.6), 0.0001);
-    }
-
-    @Test
-    void testEdgeCaseSideLength() {
-        // Edge case: very small side length
-        assertEquals(0.0004, calculateSquarePerimeter(0.0001), 0.0001);
-    }
-
-    // Mock implementation of the function for testing purposes
-    private double calculateSquarePerimeter(double sideLength) {
-        if (sideLength < 0) {
-            throw new IllegalArgumentException("Side length cannot be negative");
-        }
-        return 4 * sideLength;
+        // Valid case: very large side length
+        double sideLength = 1000.0;
+        double expectedArea = 4.330127018922193E6; // Pre-calculated expected value
+        assertEquals(expectedArea, CalculatePentagonArea.calculatePentagonArea(sideLength), 0.0001);
     }
 }
