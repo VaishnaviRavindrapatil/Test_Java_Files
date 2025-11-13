@@ -42,3 +42,19 @@ public static boolean isAnagram(String str1, String str2) {
     Arrays.sort(arr2);
     return Arrays.equals(arr1, arr2);
 }
+
+
+public static boolean isPalindromic(String str) {
+    if (str == null || str.isEmpty()) {
+        return false;
+    }
+    int left = 0, right = str.length() - 1;
+    while (left < right) {
+        if (str.charAt(left) != str.charAt(right)) {
+            return false;
+        }
+        left++;
+        right--;
+    }
+    return true;
+}
