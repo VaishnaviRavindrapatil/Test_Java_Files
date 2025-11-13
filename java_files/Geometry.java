@@ -21,3 +21,8 @@ public static double calculateRhombusArea(double diagonal1, double diagonal2) {
     }
     return (diagonal1 * diagonal2) / 2;
 }
+
+
+public static int calculateSquarePerimeter(int sideLength) {
+    return 4 * sideLength;
+}

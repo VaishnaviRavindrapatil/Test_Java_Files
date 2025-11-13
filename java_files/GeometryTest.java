@@ -1,74 +1,50 @@
-```java
 package Geometry;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-class CalculateRhombusAreaTest {
+class CalculateSquarePerimeterTest {
 
     @Test
-    void testValidAreaCalculation() {
-        // Valid case: diagonals are positive
-        double diagonal1 = 10.0;
-        double diagonal2 = 8.0;
-        double expectedArea = 40.0; // (10 * 8) / 2
-        assertEquals(expectedArea, calculateRhombusArea(diagonal1, diagonal2), 0.0001);
+    void testValidPerimeterCalculation() {
+        // Valid cases
+        assertEquals(16, calculateSquarePerimeter(4));
+        assertEquals(40, calculateSquarePerimeter(10));
+        assertEquals(0, calculateSquarePerimeter(0));
     }
 
     @Test
-    void testZeroDiagonals() {
-        // Invalid case: one or both diagonals are zero
-        double diagonal1 = 0.0;
-        double diagonal2 = 8.0;
-        assertThrows(IllegalArgumentException.class, () -> calculateRhombusArea(diagonal1, diagonal2));
-
-        diagonal1 = 10.0;
-        diagonal2 = 0.0;
-        assertThrows(IllegalArgumentException.class, () -> calculateRhombusArea(diagonal1, diagonal2));
-
-        diagonal1 = 0.0;
-        diagonal2 = 0.0;
-        assertThrows(IllegalArgumentException.class, () -> calculateRhombusArea(diagonal1, diagonal2));
+    void testNegativeSideLength() {
+        // Invalid case: negative side length
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            calculateSquarePerimeter(-5);
+        });
+        assertEquals("Side length cannot be negative", exception.getMessage());
     }
 
     @Test
-    void testNegativeDiagonals() {
-        // Invalid case: one or both diagonals are negative
-        double diagonal1 = -10.0;
-        double diagonal2 = 8.0;
-        assertThrows(IllegalArgumentException.class, () -> calculateRhombusArea(diagonal1, diagonal2));
-
-        diagonal1 = 10.0;
-        diagonal2 = -8.0;
-        assertThrows(IllegalArgumentException.class, () -> calculateRhombusArea(diagonal1, diagonal2));
-
-        diagonal1 = -10.0;
-        diagonal2 = -8.0;
-        assertThrows(IllegalArgumentException.class, () -> calculateRhombusArea(diagonal1, diagonal2));
+    void testLargeSideLength() {
+        // Valid case: large side length
+        assertEquals(4000000, calculateSquarePerimeter(1000000));
     }
 
     @Test
-    void testLargeDiagonals() {
-        // Valid case: very large diagonals
-        double diagonal1 = 1e6;
-        double diagonal2 = 2e6;
-        double expectedArea = 1e12; // (1e6 * 2e6) / 2
-        assertEquals(expectedArea, calculateRhombusArea(diagonal1, diagonal2), 0.0001);
+    void testDecimalSideLength() {
+        // Valid case: decimal side length
+        assertEquals(10.4, calculateSquarePerimeter(2.6), 0.0001);
     }
 
     @Test
-    void testSmallDiagonals() {
-        // Valid case: very small diagonals
-        double diagonal1 = 0.0001;
-        double diagonal2 = 0.0002;
-        double expectedArea = 0.00000001; // (0.0001 * 0.0002) / 2
-        assertEquals(expectedArea, calculateRhombusArea(diagonal1, diagonal2), 1e-12);
+    void testEdgeCaseSideLength() {
+        // Edge case: very small side length
+        assertEquals(0.0004, calculateSquarePerimeter(0.0001), 0.0001);
     }
 
-    // Mock of the calculateRhombusArea function for testing purposes
-    private double calculateRhombusArea(double diagonal1, double diagonal2) {
-        if (diagonal1 <= 0 || diagonal2 <= 0) {
-            throw new IllegalArgumentException("Diagonals must be positive numbers.");
+    // Mock implementation of the function for testing purposes
+    private double calculateSquarePerimeter(double sideLength) {
+        if (sideLength < 0) {
+            throw new IllegalArgumentException("Side length cannot be negative");
         }
-        return (diagonal1 * diagonal2) / 2;
+        return 4 * sideLength;
     }
+}
