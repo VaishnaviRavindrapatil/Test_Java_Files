@@ -22,3 +22,11 @@ public static String toLowerCase(String input) {
     }
     return input.toLowerCase();
 }
+
+
+public static String addExtraCharacter(String input, char extraChar) {
+    if (input == null) {
+        throw new IllegalArgumentException("Input string cannot be null");
+    }
+    return extraChar + input + extraChar;
+}

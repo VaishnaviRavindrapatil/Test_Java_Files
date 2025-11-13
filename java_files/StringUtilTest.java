@@ -1,77 +1,60 @@
-import static org.junit.jupiter.api.Assertions.*;
+package StringUtil;
+
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 class StringUtilTest {
 
     @Test
-    void testToLowerCaseWithUppercaseString() {
-        String input = "HELLO WORLD";
-        String expected = "hello world";
-        String actual = StringUtil.toLowerCase(input);
-        assertEquals(expected, actual, "The string should be converted to lowercase.");
+    void testAddExtraCharacterValidInput() {
+        // Test with valid inputs
+        assertEquals("*hello*", StringUtil.addExtraCharacter("hello", '*'));
+        assertEquals("#world#", StringUtil.addExtraCharacter("world", '#'));
+        assertEquals("!test!", StringUtil.addExtraCharacter("test", '!'));
     }
 
     @Test
-    void testToLowerCaseWithMixedCaseString() {
-        String input = "HeLLo WoRLd";
-        String expected = "hello world";
-        String actual = StringUtil.toLowerCase(input);
-        assertEquals(expected, actual, "The string should be converted to lowercase.");
+    void testAddExtraCharacterEmptyString() {
+        // Test with an empty string
+        assertEquals("*", StringUtil.addExtraCharacter("", '*'));
+        assertEquals("#", StringUtil.addExtraCharacter("", '#'));
     }
 
     @Test
-    void testToLowerCaseWithLowercaseString() {
-        String input = "hello world";
-        String expected = "hello world";
-        String actual = StringUtil.toLowerCase(input);
-        assertEquals(expected, actual, "The string should remain unchanged.");
+    void testAddExtraCharacterWhitespaceString() {
+        // Test with a string containing only whitespace
+        assertEquals("* *", StringUtil.addExtraCharacter(" ", '*'));
+        assertEquals("#   #", StringUtil.addExtraCharacter("   ", '#'));
     }
 
     @Test
-    void testToLowerCaseWithEmptyString() {
-        String input = "";
-        String expected = "";
-        String actual = StringUtil.toLowerCase(input);
-        assertEquals(expected, actual, "An empty string should remain unchanged.");
+    void testAddExtraCharacterSpecialCharacters() {
+        // Test with special characters in the input string
+        assertEquals("*@#$*", StringUtil.addExtraCharacter("@#$", '*'));
+        assertEquals("#!@#", StringUtil.addExtraCharacter("!@", '#'));
     }
 
     @Test
-    void testToLowerCaseWithNumbersAndSymbols() {
-        String input = "12345!@#$%";
-        String expected = "12345!@#$%";
-        String actual = StringUtil.toLowerCase(input);
-        assertEquals(expected, actual, "Numbers and symbols should remain unchanged.");
+    void testAddExtraCharacterNullInput() {
+        // Test with null input string
+        assertThrows(IllegalArgumentException.class, () -> StringUtil.addExtraCharacter(null, '*'));
     }
 
     @Test
-    void testToLowerCaseWithNullInput() {
-        String input = null;
-        assertThrows(NullPointerException.class, () -> {
-            StringUtil.toLowerCase(input);
-        }, "Null input should throw NullPointerException.");
+    void testAddExtraCharacterNullCharacter() {
+        // Test with null character (should throw an exception)
+        assertThrows(IllegalArgumentException.class, () -> StringUtil.addExtraCharacter("hello", '\0'));
     }
 
     @Test
-    void testToLowerCaseWithWhitespaceOnly() {
-        String input = "   ";
-        String expected = "   ";
-        String actual = StringUtil.toLowerCase(input);
-        assertEquals(expected, actual, "Whitespace-only strings should remain unchanged.");
+    void testAddExtraCharacterNumericCharacter() {
+        // Test with numeric character
+        assertEquals("1hello1", StringUtil.addExtraCharacter("hello", '1'));
     }
 
     @Test
-    void testToLowerCaseWithUnicodeCharacters() {
-        String input = "ÄÖÜß";
-        String expected = "äöüß";
-        String actual = StringUtil.toLowerCase(input);
-        assertEquals(expected, actual, "Unicode characters should be converted to lowercase.");
-    }
-
-    @Test
-    void testToLowerCaseWithSpecialCharacters() {
-        String input = "Hello@World!";
-        String expected = "hello@world!";
-        String actual = StringUtil.toLowerCase(input);
-        assertEquals(expected, actual, "Special characters should remain unchanged while letters are converted to lowercase.");
+    void testAddExtraCharacterUnicodeCharacter() {
+        // Test with a Unicode character
+        assertEquals("😊hello😊", StringUtil.addExtraCharacter("hello", '😊'));
     }
 }
