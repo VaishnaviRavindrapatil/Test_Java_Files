@@ -19,11 +19,12 @@ class FactorialTest {
     void testFactorialOfPositiveNumber() {
         assertEquals(120, NumberUtil.factorial(5), "Factorial of 5 should be 120");
         assertEquals(720, NumberUtil.factorial(6), "Factorial of 6 should be 720");
+        assertEquals(5040, NumberUtil.factorial(7), "Factorial of 7 should be 5040");
     }
 
     @Test
     void testFactorialOfLargeNumber() {
-        assertEquals(3628800, NumberUtil.factorial(10), "Factorial of 10 should be 3628800");
+        assertEquals(2432902008176640000L, NumberUtil.factorial(20), "Factorial of 20 should be 2432902008176640000");
     }
 
     @Test
@@ -32,5 +33,13 @@ class FactorialTest {
             NumberUtil.factorial(-5);
         });
         assertEquals("Factorial is not defined for negative numbers", exception.getMessage());
+    }
+
+    @Test
+    void testFactorialOfNonInteger() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            NumberUtil.factorial(4.5);
+        });
+        assertEquals("Factorial is only defined for integers", exception.getMessage());
     }
 }
