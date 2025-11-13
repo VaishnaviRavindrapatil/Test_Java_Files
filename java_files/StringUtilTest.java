@@ -1,77 +1,38 @@
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 class StringUtilTest {
 
     @Test
-    void testToLowerCaseWithUppercaseString() {
-        String input = "HELLO WORLD";
-        String expected = "hello world";
-        String actual = StringUtil.toLowerCase(input);
-        assertEquals(expected, actual, "The string should be converted to lowercase.");
+    void testIsAnagram_validAnagrams() {
+        assertTrue(StringUtil.isAnagram("listen", "silent"), "Expected 'listen' and 'silent' to be anagrams");
+        assertTrue(StringUtil.isAnagram("triangle", "integral"), "Expected 'triangle' and 'integral' to be anagrams");
+        assertTrue(StringUtil.isAnagram("evil", "vile"), "Expected 'evil' and 'vile' to be anagrams");
+        assertTrue(StringUtil.isAnagram("aabbcc", "ccbbaa"), "Expected 'aabbcc' and 'ccbbaa' to be anagrams");
     }
 
     @Test
-    void testToLowerCaseWithMixedCaseString() {
-        String input = "HeLLo WoRLd";
-        String expected = "hello world";
-        String actual = StringUtil.toLowerCase(input);
-        assertEquals(expected, actual, "The string should be converted to lowercase.");
+    void testIsAnagram_invalidAnagrams() {
+        assertFalse(StringUtil.isAnagram("hello", "world"), "Expected 'hello' and 'world' not to be anagrams");
+        assertFalse(StringUtil.isAnagram("test", "tost"), "Expected 'test' and 'tost' not to be anagrams");
+        assertFalse(StringUtil.isAnagram("java", "javascript"), "Expected 'java' and 'javascript' not to be anagrams");
+        assertFalse(StringUtil.isAnagram("abcd", "abcde"), "Expected 'abcd' and 'abcde' not to be anagrams");
     }
 
     @Test
-    void testToLowerCaseWithLowercaseString() {
-        String input = "hello world";
-        String expected = "hello world";
-        String actual = StringUtil.toLowerCase(input);
-        assertEquals(expected, actual, "The string should remain unchanged.");
+    void testIsAnagram_edgeCases() {
+        assertTrue(StringUtil.isAnagram("", ""), "Expected two empty strings to be anagrams");
+        assertFalse(StringUtil.isAnagram("a", ""), "Expected 'a' and an empty string not to be anagrams");
+        assertFalse(StringUtil.isAnagram("", "a"), "Expected an empty string and 'a' not to be anagrams");
+        assertTrue(StringUtil.isAnagram("a", "a"), "Expected 'a' and 'a' to be anagrams");
+        assertFalse(StringUtil.isAnagram("a", "A"), "Expected 'a' and 'A' not to be anagrams (case-sensitive)");
     }
 
     @Test
-    void testToLowerCaseWithEmptyString() {
-        String input = "";
-        String expected = "";
-        String actual = StringUtil.toLowerCase(input);
-        assertEquals(expected, actual, "An empty string should remain unchanged.");
-    }
-
-    @Test
-    void testToLowerCaseWithNumbersAndSymbols() {
-        String input = "12345!@#$%";
-        String expected = "12345!@#$%";
-        String actual = StringUtil.toLowerCase(input);
-        assertEquals(expected, actual, "Numbers and symbols should remain unchanged.");
-    }
-
-    @Test
-    void testToLowerCaseWithNullInput() {
-        String input = null;
-        assertThrows(NullPointerException.class, () -> {
-            StringUtil.toLowerCase(input);
-        }, "Null input should throw NullPointerException.");
-    }
-
-    @Test
-    void testToLowerCaseWithWhitespaceOnly() {
-        String input = "   ";
-        String expected = "   ";
-        String actual = StringUtil.toLowerCase(input);
-        assertEquals(expected, actual, "Whitespace-only strings should remain unchanged.");
-    }
-
-    @Test
-    void testToLowerCaseWithUnicodeCharacters() {
-        String input = "ÄÖÜß";
-        String expected = "äöüß";
-        String actual = StringUtil.toLowerCase(input);
-        assertEquals(expected, actual, "Unicode characters should be converted to lowercase.");
-    }
-
-    @Test
-    void testToLowerCaseWithSpecialCharacters() {
-        String input = "Hello@World!";
-        String expected = "hello@world!";
-        String actual = StringUtil.toLowerCase(input);
-        assertEquals(expected, actual, "Special characters should remain unchanged while letters are converted to lowercase.");
+    void testIsAnagram_specialCharacters() {
+        assertTrue(StringUtil.isAnagram("a!b@c", "c@b!a"), "Expected 'a!b@c' and 'c@b!a' to be anagrams");
+        assertFalse(StringUtil.isAnagram("a!b@c", "abc"), "Expected 'a!b@c' and 'abc' not to be anagrams");
+        assertTrue(StringUtil.isAnagram("123", "321"), "Expected '123' and '321' to be anagrams");
+        assertFalse(StringUtil.isAnagram("123", "12"), "Expected '123' and '12' not to be anagrams");
     }
 }
