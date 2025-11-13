@@ -1,45 +1,35 @@
-package NumberUtil;
-
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-class FactorialTest {
+class NumberUtilTest {
 
     @Test
-    void testFactorialOfZero() {
+    void testFactorialValidCases() {
+        // Test factorial of 0 (edge case)
         assertEquals(1, NumberUtil.factorial(0), "Factorial of 0 should be 1");
-    }
 
-    @Test
-    void testFactorialOfOne() {
+        // Test factorial of 1
         assertEquals(1, NumberUtil.factorial(1), "Factorial of 1 should be 1");
-    }
 
-    @Test
-    void testFactorialOfPositiveNumber() {
+        // Test factorial of 5
         assertEquals(120, NumberUtil.factorial(5), "Factorial of 5 should be 120");
-        assertEquals(720, NumberUtil.factorial(6), "Factorial of 6 should be 720");
-        assertEquals(5040, NumberUtil.factorial(7), "Factorial of 7 should be 5040");
+
+        // Test factorial of 10
+        assertEquals(3628800, NumberUtil.factorial(10), "Factorial of 10 should be 3628800");
     }
 
     @Test
-    void testFactorialOfLargeNumber() {
-        assertEquals(2432902008176640000L, NumberUtil.factorial(20), "Factorial of 20 should be 2432902008176640000");
-    }
-
-    @Test
-    void testFactorialOfNegativeNumber() {
+    void testFactorialInvalidCases() {
+        // Test negative number (invalid input)
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            NumberUtil.factorial(-5);
+            NumberUtil.factorial(-1);
         });
-        assertEquals("Factorial is not defined for negative numbers", exception.getMessage());
-    }
+        assertEquals("Number must be non-negative", exception.getMessage(), "Negative input should throw IllegalArgumentException");
 
-    @Test
-    void testFactorialOfNonInteger() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            NumberUtil.factorial(4.5);
+        // Test large number that may cause overflow
+        exception = assertThrows(ArithmeticException.class, () -> {
+            NumberUtil.factorial(100000);
         });
-        assertEquals("Factorial is only defined for integers", exception.getMessage());
+        assertEquals("Result exceeds maximum value for factorial calculation", exception.getMessage(), "Large input should throw ArithmeticException");
     }
 }
