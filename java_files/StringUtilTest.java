@@ -89,3 +89,49 @@ class StringUtilTest {
         assertThrows(NullPointerException.class, () -> StringUtil.isPalindromic(null), "Null input should throw a NullPointerException.");
     }
 }
+
+
+# ---- Auto-generated tests ----
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class StringUtilTest {
+
+    @Test
+    void testToUpperCaseWithValidString() {
+        String input = "hello";
+        String expected = "HELLO";
+        String actual = StringUtil.toUpperCase(input);
+        assertEquals(expected, actual, "The string should be converted to uppercase.");
+    }
+
+    @Test
+    void testToUpperCaseWithEmptyString() {
+        String input = "";
+        String expected = "";
+        String actual = StringUtil.toUpperCase(input);
+        assertEquals(expected, actual, "An empty string should remain empty.");
+    }
+
+    @Test
+    void testToUpperCaseWithMixedCaseString() {
+        String input = "HeLLo WoRLd";
+        String expected = "HELLO WORLD";
+        String actual = StringUtil.toUpperCase(input);
+        assertEquals(expected, actual, "The string should be converted to uppercase.");
+    }
+
+    @Test
+    void testToUpperCaseWithNumbersAndSymbols() {
+        String input = "123!@#abc";
+        String expected = "123!@#ABC";
+        String actual = StringUtil.toUpperCase(input);
+        assertEquals(expected, actual, "Numbers and symbols should remain unchanged, but letters should be uppercase.");
+    }
+
+    @Test
+    void testToUpperCaseWithNullInput() {
+        String input = null;
+        assertThrows(NullPointerException.class, () -> StringUtil.toUpperCase(input), "Null input should throw NullPointerException.");
+    }
+}
