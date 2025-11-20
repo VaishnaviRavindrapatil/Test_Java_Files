@@ -66,3 +66,11 @@ public static String toUpperCase(String input) {
     }
     return input.toUpperCase();
 }
+
+
+public static String removeCapitalCharacters(String input) {
+    if (input == null) {
+        return null;
+    }
+    return input.replaceAll("[A-Z]", "");
+}

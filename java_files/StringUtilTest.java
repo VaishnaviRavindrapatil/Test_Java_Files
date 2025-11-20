@@ -135,3 +135,81 @@ class StringUtilTest {
         assertThrows(NullPointerException.class, () -> StringUtil.toUpperCase(input), "Null input should throw NullPointerException.");
     }
 }
+
+
+# ---- Auto-generated tests ----
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class StringUtilTest {
+
+    @Test
+    void testRemoveCapitalCharacters_withAllCapitalLetters() {
+        String input = "HELLO";
+        String expected = "";
+        String actual = StringUtil.removeCapitalCharacters(input);
+        assertEquals(expected, actual, "Should remove all capital letters");
+    }
+
+    @Test
+    void testRemoveCapitalCharacters_withMixedCaseLetters() {
+        String input = "HelloWorld";
+        String expected = "elloorld";
+        String actual = StringUtil.removeCapitalCharacters(input);
+        assertEquals(expected, actual, "Should remove only capital letters");
+    }
+
+    @Test
+    void testRemoveCapitalCharacters_withNoCapitalLetters() {
+        String input = "hello";
+        String expected = "hello";
+        String actual = StringUtil.removeCapitalCharacters(input);
+        assertEquals(expected, actual, "Should return the original string if no capital letters are present");
+    }
+
+    @Test
+    void testRemoveCapitalCharacters_withEmptyString() {
+        String input = "";
+        String expected = "";
+        String actual = StringUtil.removeCapitalCharacters(input);
+        assertEquals(expected, actual, "Should return an empty string when input is empty");
+    }
+
+    @Test
+    void testRemoveCapitalCharacters_withSpecialCharacters() {
+        String input = "Hello@World!";
+        String expected = "ello@orld!";
+        String actual = StringUtil.removeCapitalCharacters(input);
+        assertEquals(expected, actual, "Should remove only capital letters and leave special characters untouched");
+    }
+
+    @Test
+    void testRemoveCapitalCharacters_withNumbersAndCapitalLetters() {
+        String input = "123ABC456";
+        String expected = "123456";
+        String actual = StringUtil.removeCapitalCharacters(input);
+        assertEquals(expected, actual, "Should remove capital letters and leave numbers untouched");
+    }
+
+    @Test
+    void testRemoveCapitalCharacters_withWhitespaceAndCapitalLetters() {
+        String input = "A B C";
+        String expected = " ";
+        String actual = StringUtil.removeCapitalCharacters(input);
+        assertEquals(expected, actual, "Should remove capital letters and leave whitespace untouched");
+    }
+
+    @Test
+    void testRemoveCapitalCharacters_withNullInput() {
+        String input = null;
+        assertThrows(NullPointerException.class, () -> StringUtil.removeCapitalCharacters(input), "Should throw NullPointerException for null input");
+    }
+
+    @Test
+    void testRemoveCapitalCharacters_withUnicodeCapitalLetters() {
+        String input = "ПриветМир";
+        String expected = "риветир";
+        String actual = StringUtil.removeCapitalCharacters(input);
+        assertEquals(expected, actual, "Should remove capital letters including Unicode characters");
+    }
+}
